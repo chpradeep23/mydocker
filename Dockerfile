@@ -2,11 +2,11 @@
 
 =======
 >>>>>>> ed8f629943602fc097be1835cb8c51adba340c6d
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-ENV TZ=America/Detriot
+ENV TZ=America/New_York
 
 RUN apt-get update && apt-get install -y \
     apt-transport-https \
