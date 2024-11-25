@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> ed8f629943602fc097be1835cb8c51adba340c6d
 FROM ubuntu:24.04
 
 ARG DEBIAN_FRONTEND=noninteractive
