@@ -2,11 +2,11 @@
 
 =======
 >>>>>>> ed8f629943602fc097be1835cb8c51adba340c6d
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-ENV TZ=America/Detriot
+ENV TZ=America/New_York
 
 RUN apt-get update && apt-get install -y \
     apt-transport-https \
@@ -43,12 +43,15 @@ RUN apt-get update && apt-get install -y \
     zsh	\
     wget
 
+
+RUN apt install python3.12-venv -y
+
+ENV VIRTUAL_ENV=/opt/venv
+RUN python3 -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 COPY requirements.txt requirements.txt
-
 COPY requirements.yml requirements.yml
-
-RUN pip3 install -r requirements.txt
-
+RUN pip install -r requirements.txt
 RUN ansible-galaxy collection install -r requirements.yml --force
 
 # Install Oh My Zsh
