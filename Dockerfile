@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     apt-transport-https \
     ca-certificates \
     cdpr \
+    containerlab \
     curl \
     dnsutils \
     dsniff \
