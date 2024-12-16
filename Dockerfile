@@ -8,7 +8,6 @@ RUN apt-get update && apt-get install -y \
     apt-transport-https \
     ca-certificates \
     cdpr \
-    containerlab \
     curl \
     dnsutils \
     dsniff \
@@ -50,10 +49,8 @@ COPY requirements.txt requirements.txt
 COPY requirements.yml requirements.yml
 RUN pip install -r requirements.txt
 RUN ansible-galaxy collection install -r requirements.yml --force
-
 # Install Oh My Zsh
 RUN sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
-
 # Optionally, if you want to set the Robby Russell theme explicitly
 # RUN sed -i 's/ZSH_THEME=".*"/ZSH_THEME="robbyrussell"/g' ~/.zshrc
 
