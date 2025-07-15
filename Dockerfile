@@ -39,8 +39,9 @@ RUN apt-get update && apt-get install -y \
     zsh	\
     wget
 
-
-RUN apt install python3.12-venv -y
+RUN sudo apt update
+RUN sudo apt install python3-venv -y
+RUN python3 -m venv .venv
 
 ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
@@ -61,4 +62,4 @@ SHELL ["/bin/zsh", "-c"]
 ENTRYPOINT ["/bin/zsh"]
 
 LABEL maintainer="Pradeep Challagulla <ch.pradeep23@gmail.com>" \
-      version="1.0.0"
+      version="1.1.0"
