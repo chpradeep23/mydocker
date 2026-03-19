@@ -1,13 +1,10 @@
 FROM ubuntu:25.04
 
 ARG DEBIAN_FRONTEND=noninteractive
-
 ENV TZ=America/New_York
 
 RUN apt-get update && apt-get install -y \
-    apt-transport-https \
     ca-certificates \
-    cdpr \
     curl \
     dnsutils \
     dsniff \
@@ -15,12 +12,10 @@ RUN apt-get update && apt-get install -y \
     iperf \
     iperf3 \
     fping \
-    git-all \
+    git \
     gnupg \
-    gsutil \
-    ifenslave \
     inetutils-traceroute \
-    iputils-* \
+    iputils-ping \
     libkrb5-dev \
     lldpd \
     locales \
@@ -28,37 +23,33 @@ RUN apt-get update && apt-get install -y \
     nano \
     net-tools \
     netplan.io \
-    openssh-server \
     python3 \
     python3-pip \
-    snapd \
-    sudo \
+    python3-venv \
     tzdata \
-    ufw \
     vim \
-    zsh	\
-    wget
+    zsh \
+    wget \
+ && rm -rf /var/lib/apt/lists/*
 
-RUN sudo apt update
-RUN sudo apt install python3-venv -y
-RUN python3 -m venv .venv
-
+# Python virtual environment
 ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
-COPY requirements.txt requirements.txt
-COPY requirements.yml requirements.yml
-RUN pip install -r requirements.txt
-RUN ansible-galaxy collection install -r requirements.yml --force
-# Install Oh My Zsh
-RUN sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
-# Optionally, if you want to set the Robby Russell theme explicitly
-# RUN sed -i 's/ZSH_THEME=".*"/ZSH_THEME="robbyrussell"/g' ~/.zshrc
 
-# Set the default shell to zsh
+# Copy dependency files first (better caching)
+COPY requirements.txt .
+COPY requirements.yml .
+
+RUN pip install --upgrade pip \
+ && pip install -r requirements.txt \
+ && ansible-galaxy collection install -r requirements.yml --force
+
+# Install Oh My Zsh (non-interactive)
+RUN RUNZSH=no CHSH=no KEEP_ZSHRC=yes \
+    sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+
 SHELL ["/bin/zsh", "-c"]
-
-# Set the entrypoint to zsh
 ENTRYPOINT ["/bin/zsh"]
 
 LABEL maintainer="Pradeep Challagulla <ch.pradeep23@gmail.com>" \

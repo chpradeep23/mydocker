@@ -1,0 +1,30 @@
+# Git metadata (can be huge)
+.git
+.gitignore
+
+# Local Python virtual environments
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Local Ansible / Galaxy cache
+.ansible/
+ansible_collections/
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Sensitive data
+.env
+*.key
+*.pem
+
+# Docker logs and temp files
+*.log
+docker-compose.yml
