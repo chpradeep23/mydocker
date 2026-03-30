@@ -18,7 +18,7 @@ docker run -it --rm -v $(PWD):/projects mydevbox
 ## build Image
 
 ``` bash
-docker compose up --build
+docker build --no-cache -t mydevbox .
 ```
 
 ## Run Container
