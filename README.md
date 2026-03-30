@@ -12,3 +12,18 @@ docker build --no-cache -t mydevbox .
 # start and mount local volume to /projects
 docker run -it --rm -v $(PWD):/projects mydevbox
 ```
+
+### ORBSTACK
+
+## build Image
+
+``` bash
+docker compose up --build
+```
+
+## Run Container
+
+``` bash
+# start and mount local volume to /projects
+docker run -it --rm -v $(PWD):/workspace mydocker-devbox
+```
