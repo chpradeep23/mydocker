@@ -25,5 +25,5 @@ docker build --no-cache -t mydevbox .
 
 ``` bash
 # start and mount local volume to /projects
-docker run -it --rm -v $(PWD):/workspace mydocker-devbox
+docker run -it --rm -v $(PWD):/workspace mydevbox
 ```
